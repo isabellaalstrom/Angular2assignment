@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
     templateUrl: 'app/account/register.component.html'
 })
 
-export class RegisterComponent implements OnInit {
-    //customer: Customer = new Customer;
+export class RegisterComponent {
+    
     firstName: string;
     lastName: string;
     address: string;
@@ -24,9 +24,6 @@ export class RegisterComponent implements OnInit {
     constructor(
         private router: Router,
         private accountService: AccountService) { }
-
-    ngOnInit() {
-    }
 
     register() {  //funkar med nackademiska, men ej secure
         this.accountService.createCustomer(this.firstName, this.lastName,

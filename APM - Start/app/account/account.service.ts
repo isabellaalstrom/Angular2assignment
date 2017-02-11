@@ -19,6 +19,7 @@ export class AccountService {
         return (this.customer != null);
     }
 
+    //funkar
     login(loginInformation: LoginInformation): Promise<boolean> {
         return this.http.post('http://nackademiskasecure2.azurewebsites.net/api/account/login', loginInformation, { withCredentials: true })
             .toPromise()
@@ -35,6 +36,7 @@ export class AccountService {
             .catch(error => false);
     }
 
+    //funkar
     logout() {
         this.http.get('http://nackademiskasecure2.azurewebsites.net/api/account/logout');
         this.customer = null;
@@ -47,6 +49,7 @@ export class AccountService {
             .catch(this.handleError);;
     }
 
+    //funkar
     getCustomer(id: number): Promise<Customer> {
         if (id != 0) {
             console.log(id);
@@ -71,17 +74,13 @@ export class AccountService {
                 postalCode: postalCode, city: city, phone: phone,
                 email: email, password: password }, headers)
             .toPromise()
-            //kommer inte hit, går in i catch?
-            //.then(response => {return true;})
             .catch(this.handleError);
-        // = ZoneAwarePromise {__zone_symbol__state: null, __zone_symbol__value: Array[0]}
-
     }
 
-    private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
-    }
+    // private extractData(res: Response) {
+    // let body = res.json();
+    // return body.data || { };
+    // }
 
     private handleError(error: any): Promise<any> {
         console.error('!!!ERROR ERROR ERROR!!!', error);
