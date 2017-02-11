@@ -57,31 +57,30 @@ export class AccountService {
         }
     }
 
+    //funkar med nackademiska, men ej secure
     createCustomer(firstName: string, lastName: string, address: string,
                 postalCode: string, city: string, phone: string,
-                email: string, password: string): Promise<boolean> {
-                    console.log(firstName);
-                    console.log(lastName);
-                    console.log(address);
-                    console.log(postalCode);
-                    console.log(city);
-                    console.log(phone);
-                    console.log(email);
-                    console.log(password);
+                email: string, password: string)
+                // : Promise<boolean> 
+                {
         let headers = new Headers({ 'Content-Type': 'application/json' })
         let options = new RequestOptions({ headers: headers });
         return this.http
-            .post('http://nackademiskasecure.azurewebsites.net/api/customer',
-            { "firstName": firstName, "lastName": lastName, address: address,
+            .post('http://nackademiska.azurewebsites.net/api/customer',
+            { firstName: firstName, lastName: lastName, address: address,
                 postalCode: postalCode, city: city, phone: phone,
                 email: email, password: password }, headers)
             .toPromise()
             //kommer inte hit, går in i catch?
-            .then((response: Response) => 
-            response.json().data)
+            //.then(response => {return true;})
             .catch(this.handleError);
         // = ZoneAwarePromise {__zone_symbol__state: null, __zone_symbol__value: Array[0]}
 
+    }
+
+    private extractData(res: Response) {
+    let body = res.json();
+    return body.data || { };
     }
 
     private handleError(error: any): Promise<any> {

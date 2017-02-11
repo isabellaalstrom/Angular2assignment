@@ -28,11 +28,11 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
     }
 
-    register() {
+    register() {  //funkar med nackademiska, men ej secure
         this.accountService.createCustomer(this.firstName, this.lastName,
             this.address, this.postalCode, this.city, this.phone,
             this.email, this.password)
-            .then(data => {   //registrerar, men går inte in här?
+            .then(response => {
                 console.log("registrerad!");
                 this.router.navigate(['/auctions']);
             });
