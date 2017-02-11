@@ -1,0 +1,6 @@
+<div><i>{{ highestBidPrice }}</i>
+<i class="btn btn-xs" (click)='showAllBids()'>Visa budhistorik</i>
+    <ul class="list-unstyled" *ngIf='bids && bids.length && showBids'>
+        <li *ngFor='let bid of bids | bidFilter'>{{bid?.bidPrice}}</li>
+    </ul>
+</div>

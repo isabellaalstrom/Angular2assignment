@@ -1,0 +1,40 @@
+<div class='panel panel-primary' *ngIf='supplier'>
+    <div class='panel-heading' style='font-size:large'> {{pageTitle + ': ' + supplier.name}}
+</div>
+
+<div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-9'>
+            <div class='row'>
+                <div class='col-md-3'>Namn:</div>
+                <div class='col-md-6'>{{supplier.name}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Adress:</div>
+                <div class='col-md-6'>{{supplier.address}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Postnummer:</div>
+                <div class='col-md-6'>{{supplier.postalCode}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Stad:</div>
+                <div class='col-md-6'>{{supplier.city}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Telefonnummer:</div>
+                <div class='col-md-6'>{{supplier.phone}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>E-post:</div>
+                <div class='col-md-6'>{{supplier.email}}</div>
+            </div>
+        </div>
+</div>
+
+<div class='panel-footer'>
+    <a class='btn btn-default' (click)='onBack()'>
+<i class='glyphicon glyphicon-chevron-left'></i> Tillbaka till auktion
+</a>
+</div>
+</div>

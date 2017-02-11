@@ -1,0 +1,60 @@
+<div class='panel panel-primary' *ngIf='auction'>
+    <div class='panel-heading' style='font-size:large'> {{loggedIn + " " +pageTitle + ': ' + auction.name}}
+</div>
+
+<div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-9'>
+            <div class='row'>
+                <div class='col-md-3'>Namn:</div>
+                <div class='col-md-6'>{{auction.name}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Beskrivning:</div>
+                <div class='col-md-6'>{{auction.description}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Starttid:</div>
+                <div class='col-md-6'>{{auction.startTime | date:'short'}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Sluttid:</div>
+                <div class='col-md-6'>{{auction.endTime | date:'short'}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Köp nu-pris:</div>
+                <div class='col-md-3'>{{ auction.buyNowPrice | currency:'SEK' }}</div>
+                <div class='col-md-3'>
+                    <button class="btn btn-default" (click)='buyNow()'>Köp nu</button>{{message}}
+                </div>
+                <!--man kan inte köpa om man inte är inloggad - FIXA!-->
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>Aktuellt bud:</div>
+                <div class='col-md-3'>
+                    <pm-bid [auctionId]='auction.id'></pm-bid>
+                </div>
+                <div class='col-md-3'><button class="btn btn-default" (click)='postBid()'>Lägg bud</button></div>
+                <!--koppla till metod-->
+            </div>
+            <div class='row'>
+                <div class='col-md-6'><button class="btn btn-default" (click)="goToSupplier(auction.supplierId)">Visa information om leverantör</button></div>
+                <div class='col-md-3'></div>
+                <!--koppla till metod-->
+            </div>
+        </div>
+
+        <div class='col-md-3'>
+            <img class='center-block img-responsive' [style.width.px]='200' [style.margin.px]='2' [src]='auction.imageUrl' [title]='auction.name'>
+        </div>
+    </div>
+</div>
+
+<div class='panel-footer'>
+    <a class='btn btn-default' (click)='onBack()'>
+        <i class='glyphicon glyphicon-chevron-left'></i> Tillbaka
+    </a>
+</div>
+</div>
+
+{{message}}
