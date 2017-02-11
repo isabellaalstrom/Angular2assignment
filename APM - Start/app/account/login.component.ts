@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; //finns ej nåt returnurl?
     this.loggedIn = this.isLoggedIn();
   }
   ngOnChanges(){

@@ -53,7 +53,7 @@ export class AuctionDetailsComponent implements OnInit {
     goToSupplier(supplierId: number) {
         this.router.navigate(['supplier', supplierId]);
     }
-    
+
     //funkar i vanliga, ej secure
     postBid() {
         if (this.loggedIn) {
@@ -69,7 +69,8 @@ export class AuctionDetailsComponent implements OnInit {
         }
     }
 
-    buyNow() {
+    //funkar med vanliga, ej secure
+    buyNow() { //i secure får jag error 400 men varan köps ändå
         if (this.loggedIn) {
             let customerId = this.accountService.customer.id;
             this.auctionService.buyNow(this.auctionId, customerId)

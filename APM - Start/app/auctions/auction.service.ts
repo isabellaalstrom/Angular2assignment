@@ -49,23 +49,16 @@ export class AuctionService {
             //{ withCredentials: true }
             )
             .toPromise()
-            // .then(response => {
-            //     response.json();
-            //     console.log("budat");
-            // })
             .catch(this.handleError);
     }
-
-    buyNow(aId: number, cId: number): Promise<boolean> {
-        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/auction/buynow', { auctionId: aId, customerId: cId }, { withCredentials: true })
-            //error 400 men köpet går igenom ändå?
+    //funkar med vanliga, ej secure
+    buyNow(aId: number, cId: number) { //i secure får jag error 400 men varan köps ändå
+        return this.http.post('http://nackademiska.azurewebsites.net/api/auction/buynow',
+        { auctionId: aId, customerId: cId }
+        //, { withCredentials: true }
+        )
             .toPromise()
-            .then(response => { //kommer aldrig hit
-                response.json();
-                console.log("köpt vara!");
-                return true;
-            })
-            .catch(error => false);
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
