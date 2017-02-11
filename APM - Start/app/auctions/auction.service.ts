@@ -39,33 +39,21 @@ export class AuctionService {
             .map((response: Response) => response.json());
     }
 
-    // getHighestBid(id: number): Observable<number> {
-    //     let bidList: IBid[];
-    //     let highestBidPrice: number;
-    //     this.getBids(id).subscribe(
-    //         bids => {
-    //             bidList = bids as IBid[];
-    //             bidList.forEach(bid => {
-    //                 if (bid.bidPrice >= highestBidPrice) {
-    //                     highestBidPrice = bid.bidPrice;
-    //                 }
-    //             });
-    //         });
-    //     return highestBidPrice;
-    // }
-
+    //funkar i vanliga, ej secure
     postBid(aId: number, cId: number, bP: number) {
         console.log("bud: " + bP);
         console.log("auktion: " + aId);
         console.log("användare: " + cId);
-        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/bid',
-            { auctionId: aId, customerId: cId, bidPrice: bP },
-            { withCredentials: true })
+        return this.http.post('http://nackademiska.azurewebsites.net/api/bid',
+            { auctionId: aId, customerId: cId, bidPrice: bP }//,
+            //{ withCredentials: true }
+            )
             .toPromise()
-            .then(response => {
-                response.json();
-                console.log("budat");
-            })
+            // .then(response => {
+            //     response.json();
+            //     console.log("budat");
+            // })
+            .catch(this.handleError);
     }
 
     buyNow(aId: number, cId: number): Promise<boolean> {

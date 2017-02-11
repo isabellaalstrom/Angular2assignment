@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
         this.message = "Kunde inte logga in"; 
       }
       else if (result) {
-        this.router.navigate([this.returnUrl]);
+        console.log(this.returnUrl); 
+        this.router.navigate([this.returnUrl]); 
+        //kommer tillbaka till auctions, ej returnurl?
       }
     })
   }

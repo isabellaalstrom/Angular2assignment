@@ -44,25 +44,27 @@ export class AuctionDetailsComponent implements OnInit {
             this.loggedIn = false;
         }
     }
-
+    //funkar
     onBack(): void {
         this.router.navigate(['/auctions']);
     }
 
+    //funkar
     goToSupplier(supplierId: number) {
         this.router.navigate(['supplier', supplierId]);
     }
-
+    
+    //funkar i vanliga, ej secure
     postBid() {
-
         if (this.loggedIn) {
-            // console.log("bud: " + this.bid);
-            // console.log("auktion: " + this.auctionId);
             let customerId = this.accountService.customer.id; //auctionService kanske kan hämta själv?
-            // console.log("användare: " + customerId);
-            this.auctionService.postBid(this.auctionId, customerId, this.bid);
+            this.auctionService.postBid(this.auctionId, customerId, this.bid)
+            .then(response => {
+                console.log("Du har lagt ett bud.");
+                this.message = "Du har lagt ett bud.";
+            });
         }
-        else if (!this.loggedIn) { //redirect ok
+        else if (!this.loggedIn) { //redirect funkar
             this.router.navigate(['login']);
         }
     }

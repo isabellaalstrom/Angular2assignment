@@ -5,6 +5,7 @@ import { IAuction } from './auction';
     name: 'auctionFilter'
 })
 
+//funkar
 export class AuctionFilterPipe implements PipeTransform {
     transform(value: IAuction[], filterBy: string) : IAuction[] {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null; //arrayfilterfunction
