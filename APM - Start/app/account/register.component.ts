@@ -10,7 +10,15 @@ import { Router } from '@angular/router';
 })
 
 export class RegisterComponent implements OnInit {
-    customer: Customer = new Customer;
+    //customer: Customer = new Customer;
+    firstName: string;
+    lastName: string;
+    address: string;
+    postalCode: string;
+    city: string;
+    phone: string;
+    email: string;
+    password: string;
     message: string;
 
     constructor(
@@ -19,8 +27,11 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
     }
+
     register() {
-        this.accountService.createCustomer(this.customer)
+        this.accountService.createCustomer(this.firstName, this.lastName,
+            this.address, this.postalCode, this.city, this.phone,
+            this.email, this.password)
             .then(data => {   //registrerar, men går inte in här?
                 console.log("registrerad!");
                 this.router.navigate(['/auctions']);

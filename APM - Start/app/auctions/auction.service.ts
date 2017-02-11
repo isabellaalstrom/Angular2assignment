@@ -39,7 +39,25 @@ export class AuctionService {
             .map((response: Response) => response.json());
     }
 
+    // getHighestBid(id: number): Observable<number> {
+    //     let bidList: IBid[];
+    //     let highestBidPrice: number;
+    //     this.getBids(id).subscribe(
+    //         bids => {
+    //             bidList = bids as IBid[];
+    //             bidList.forEach(bid => {
+    //                 if (bid.bidPrice >= highestBidPrice) {
+    //                     highestBidPrice = bid.bidPrice;
+    //                 }
+    //             });
+    //         });
+    //     return highestBidPrice;
+    // }
+
     postBid(aId: number, cId: number, bP: number) {
+        console.log("bud: " + bP);
+        console.log("auktion: " + aId);
+        console.log("användare: " + cId);
         return this.http.post('http://nackademiskasecure.azurewebsites.net/api/bid',
             { auctionId: aId, customerId: cId, bidPrice: bP },
             { withCredentials: true })
@@ -52,9 +70,9 @@ export class AuctionService {
 
     buyNow(aId: number, cId: number): Promise<boolean> {
         return this.http.post('http://nackademiskasecure.azurewebsites.net/api/auction/buynow', { auctionId: aId, customerId: cId }, { withCredentials: true })
-            //tror att det inte sparats nån cookie? error 400
+            //error 400 men köpet går igenom ändå?
             .toPromise()
-            .then(response => {
+            .then(response => { //kommer aldrig hit
                 response.json();
                 console.log("köpt vara!");
                 return true;

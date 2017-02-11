@@ -20,6 +20,7 @@ export class AuctionDetailsComponent implements OnInit {
     auction: IAuction;
     message: string;
     loggedIn: boolean;
+    bid: number = 50000; //gör till nuvarande högsta bud istället
 
 
     ngOnInit() {
@@ -28,6 +29,7 @@ export class AuctionDetailsComponent implements OnInit {
             this.auction = auction;
         });
         this.isLoggedIn();
+        //this.bid = highestBid; //FIXA?
     }
 
     ngDoCheck() {
@@ -52,9 +54,16 @@ export class AuctionDetailsComponent implements OnInit {
     }
 
     postBid() {
+
         if (this.loggedIn) {
-            let customerId = this.accountService.customer.id;
-            this.auctionService.postBid(this.auctionId, customerId, 50000)
+            // console.log("bud: " + this.bid);
+            // console.log("auktion: " + this.auctionId);
+            let customerId = this.accountService.customer.id; //auctionService kanske kan hämta själv?
+            // console.log("användare: " + customerId);
+            this.auctionService.postBid(this.auctionId, customerId, this.bid);
+        }
+        else if (!this.loggedIn) { //redirect ok
+            this.router.navigate(['login']);
         }
     }
 
@@ -62,14 +71,14 @@ export class AuctionDetailsComponent implements OnInit {
         if (this.loggedIn) {
             let customerId = this.accountService.customer.id;
             this.auctionService.buyNow(this.auctionId, customerId)
-                .then(value => {
-                        this.message = "Grattis, du har nu köpt varan!";
-                        console.log("Du köpte varan.");
-                        this.router.navigate(['auctions']);
+                .then(value => { //kommer hit trots 400 och varan köps
+                    this.message = "Grattis, du har nu köpt varan!";
+                    console.log("Du köpte varan.");
+                    this.router.navigate(['auctions']);
                 })
                 .catch(error => false);
         }
-        else if (!this.accountService.isLoggedIn()) {
+        else if (!this.loggedIn) {
             this.router.navigate(['login']);
         }
     }

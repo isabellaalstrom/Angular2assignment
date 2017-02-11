@@ -16,30 +16,27 @@ export class BidComponent implements OnInit {
     @Input() auctionId: number;
     bids: IBid[];
     highestBidPrice: number = 0;
-    highestBid: IBid;
+    //highestBid: IBid;
     showBids: boolean = false;
 
     ngOnInit(): void {
-        //this.auctionService.GetBids(this.auctionId);
-        //console.log(this.bids);
-        
          this.auctionService.getBids(this.auctionId).subscribe(
              bids => {
                  this.bids = bids as IBid[];
                  this.getHighestBid();
             });
+         //this.getHighestBid();
     }
 
     getHighestBid() {
+        //this.auctionService.getHighestBid(this.auctionId).subscribe();
         this.bids.forEach(bid => {
             if(bid.bidPrice >= this.highestBidPrice)
             {
                 this.highestBidPrice = bid.bidPrice;
-                this.highestBid = bid;
+                //this.highestBid = bid;
             }
         });
-        // this.highestBid = (this.bids.sort(b => b.bidPrice))[0];
-        // console.log(this.highestBid.bidPrice);
     }
     showAllBids(){
         if(!this.showBids)

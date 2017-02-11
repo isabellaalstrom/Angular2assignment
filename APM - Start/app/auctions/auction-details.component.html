@@ -15,37 +15,47 @@
             </div>
             <div class='row'>
                 <div class='col-md-3'>Starttid:</div>
-                <div class='col-md-6'>{{auction.startTime | date:'short'}}</div>
+                <div class='col-md-6'>{{auction.startTime | date:'medium'}}</div>
             </div>
             <div class='row'>
                 <div class='col-md-3'>Sluttid:</div>
-                <div class='col-md-6'>{{auction.endTime | date:'short'}}</div>
+                <div class='col-md-6'>{{auction.endTime | date:'medium'}}</div>
             </div>
             <div class='row'>
                 <div class='col-md-3'>Köp nu-pris:</div>
-                <div class='col-md-3'>{{ auction.buyNowPrice | currency:'SEK' }}</div>
+                <div class='col-md-3'>{{ auction.buyNowPrice | currency:'SEK':true:'1.0-0' }}</div>
                 <div class='col-md-3'>
                     <button class="btn btn-default" (click)='buyNow()'>Köp nu</button>{{message}}
                 </div>
-                <!--man kan inte köpa om man inte är inloggad - FIXA!-->
+                <!--man ska inte kunna köpa om man inte är inloggad - FIXA!-->
+            </div>
+            <br>
+            <div class='row'>
+                <div class='col-md-3'>Buda</div>
+
+                    <form>
+                        <div class="form-group col-md-3">
+                            <input type="number" name="bid" [(ngModel)]='bid' placeholder="50 000" required />
+                        </div>
+                        <div col-md-3><button class="btn btn-default" (click)='postBid()'>Lägg bud</button></div>
+                    </form>
             </div>
             <div class='row'>
                 <div class='col-md-3'>Aktuellt bud:</div>
                 <div class='col-md-3'>
                     <pm-bid [auctionId]='auction.id'></pm-bid>
                 </div>
-                <div class='col-md-3'><button class="btn btn-default" (click)='postBid()'>Lägg bud</button></div>
-                <!--koppla till metod-->
             </div>
-            <div class='row'>
+            <!--<div class='row'>
                 <div class='col-md-6'><button class="btn btn-default" (click)="goToSupplier(auction.supplierId)">Visa information om leverantör</button></div>
                 <div class='col-md-3'></div>
-                <!--koppla till metod-->
-            </div>
+                koppla till metod
+            </div>-->
         </div>
 
         <div class='col-md-3'>
             <img class='center-block img-responsive' [style.width.px]='200' [style.margin.px]='2' [src]='auction.imageUrl' [title]='auction.name'>
+            <button class="btn btn-default" (click)="goToSupplier(auction.supplierId)">Visa information om leverantör</button>
         </div>
     </div>
 </div>

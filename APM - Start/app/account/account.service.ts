@@ -20,7 +20,7 @@ export class AccountService {
     }
 
     login(loginInformation: LoginInformation): Promise<boolean> {
-        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/account/login', loginInformation, { withCredentials: true })
+        return this.http.post('http://nackademiskasecure2.azurewebsites.net/api/account/login', loginInformation, { withCredentials: true })
             .toPromise()
             .then(response => {
                 let r = response.json();
@@ -37,12 +37,12 @@ export class AccountService {
     }
 
     logout() {
-        this.http.get('http://nackademiskasecure.azurewebsites.net/api/account/logout');
+        this.http.get('http://nackademiskasecure2.azurewebsites.net/api/account/logout');
         this.customer = null;
     }
 
     getCustomers(): Promise<Customer[]> {
-        return this.http.get("http://nackademiskasecure.azurewebsites.net/api/customer")
+        return this.http.get("http://nackademiskasecure2.azurewebsites.net/api/customer")
             .toPromise()
             .then((response: Response) => response.json())
             .catch(this.handleError);;
@@ -51,19 +51,35 @@ export class AccountService {
     getCustomer(id: number): Promise<Customer> {
         if (id != 0) {
             console.log(id);
-            return this.http.get(`http://nackademiskasecure.azurewebsites.net/api/customer/${id}`)
+            return this.http.get(`http://nackademiskasecure2.azurewebsites.net/api/customer/${id}`)
                 .toPromise()
                 .then((response: Response) => response.json());
             //.catch(this.handleError);
         }
     }
 
-    createCustomer(customer: Customer): Promise<boolean> { //får in en customer
+    createCustomer(firstName: string, lastName: string, address: string,
+                postalCode: string, city: string, phone: string,
+                email: string, password: string): Promise<boolean> { //får in en customer
+                    console.log(firstName);
+                    console.log(lastName);
+                    console.log(address);
+                    console.log(postalCode);
+                    console.log(city);
+                    console.log(phone);
+                    console.log(email);
+                    console.log(password);
         return this.http
-            .post('http://nackademiskasecure.azurewebsites.net/api/customer', customer)
+            .post('http://nackademiska.azurewebsites.net/api/customer',
+            { "firstName": firstName, "lastName": lastName, address: address,
+                postalCode: postalCode, city: city, phone: phone,
+                email: email, password: password })
             .toPromise()
-            .then(((response: Response) => response.json())); //kommer inte hit, går in i catch?
-        //.catch(this.handleError);
+            .then((response: Response) => 
+            response.json().data)
+            .catch(this.handleError);
+            //kommer inte hit, går in i catch?
+            //.catch(this.handleError);
         // = ZoneAwarePromise {__zone_symbol__state: null, __zone_symbol__value: Array[0]}
 
     }

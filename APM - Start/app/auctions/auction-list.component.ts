@@ -21,7 +21,7 @@ export class AuctionListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     listFilter: string;
-    categoryFilter: boolean = false;
+    categoryFilter: boolean;
     auctions: IAuction[];
     categories: ICategory[];
     category: ICategory;
