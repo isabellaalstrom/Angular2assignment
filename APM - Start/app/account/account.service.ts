@@ -27,7 +27,6 @@ export class AccountService {
                 this.getCustomer(r.id).then(customer => {
                     if (r) {
                         this.customer = customer;
-                        console.log(this.customer);
                     }
                     return this.isLoggedIn();
                 })
@@ -60,7 +59,7 @@ export class AccountService {
 
     createCustomer(firstName: string, lastName: string, address: string,
                 postalCode: string, city: string, phone: string,
-                email: string, password: string): Promise<boolean> { //får in en customer
+                email: string, password: string): Promise<boolean> {
                     console.log(firstName);
                     console.log(lastName);
                     console.log(address);
@@ -69,17 +68,18 @@ export class AccountService {
                     console.log(phone);
                     console.log(email);
                     console.log(password);
+        let headers = new Headers({ 'Content-Type': 'application/json' })
+        let options = new RequestOptions({ headers: headers });
         return this.http
-            .post('http://nackademiska.azurewebsites.net/api/customer',
+            .post('http://nackademiskasecure.azurewebsites.net/api/customer',
             { "firstName": firstName, "lastName": lastName, address: address,
                 postalCode: postalCode, city: city, phone: phone,
-                email: email, password: password })
+                email: email, password: password }, headers)
             .toPromise()
+            //kommer inte hit, går in i catch?
             .then((response: Response) => 
             response.json().data)
             .catch(this.handleError);
-            //kommer inte hit, går in i catch?
-            //.catch(this.handleError);
         // = ZoneAwarePromise {__zone_symbol__state: null, __zone_symbol__value: Array[0]}
 
     }

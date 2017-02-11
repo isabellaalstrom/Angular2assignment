@@ -6,24 +6,15 @@ import { AccountService } from './account/account.service';
 
 @Component({
     selector: 'pm-app',
-    template: `
-    <div>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a class="navbar-brand">{{pageTitle}}</a>
-                <ul class="nav navbar-nav">
-                    <li [routerLink]="['/login']"><a>Logga in/registrera</a></li>
-                    <li [routerLink]="['/auctions']"><a>Auktioner</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-    `//,
+    templateUrl: './app/app.component.html'
     //providers: [AuctionService, SupplierService, AccountService, AuthGuard] //flytta till app-module sen
 })
 export class AppComponent {
+    constructor(private accountService: AccountService){}
     pageTitle : string = `Nackademiska Auktionsfrämjandet`;
+    loggedIn: boolean = this.accountService.isLoggedIn();
+
+    ngDoCheck(){
+        this.loggedIn = this.accountService.isLoggedIn();
+    }
 }

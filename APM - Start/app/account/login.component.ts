@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   loginInfo: LoginInformation = new LoginInformation();
   message: string = "";
+  loggedIn: boolean;
 
   constructor(private location: Location,
     private accountService: AccountService,
@@ -22,23 +23,25 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.loggedIn = this.isLoggedIn();
   }
-
-  login(): void {
+  ngOnChanges(){
+    this.loggedIn = this.isLoggedIn();
+  }
+  login(): void {  //funkar
     this.accountService.login(this.loginInfo).then(result => {
       if (!result) {
         this.message = "Kunde inte logga in"; 
       }
       else if (result) {
-        console.log("inloggad som vanlig användare");
         this.router.navigate([this.returnUrl]);
       }
     })
   }
 
-  logout(): void {
+  logout(): void {  //funkar
     this.accountService.logout();
-    console.log(this.accountService.isLoggedIn());
+    this.router.navigate(["/auctions"]);
   }
 
   // //JWT ADMIN

@@ -1,8 +1,7 @@
-
 <div class="col-md-6 col-md-offset-3">
-    <h2>Logga in</h2>
-    <form name="form">
-        <div class="form-group">
+    <h2 *ngIf="!loggedIn">Logga in</h2>
+    <form *ngIf="!loggedIn" name="form">
+        <div *ngIf="!loggedIn" class="form-group">
             <label class="control-label" for="email">Epost</label>
             <input type="email" name="email" class="form-control" [(ngModel)]='loginInfo.email' required/>
         </div>
@@ -13,8 +12,10 @@
         <div class="form-group">
             <button class="btn btn-primary" (click)="login()">Logga in</button>
             <a [routerLink]="['/register']" class="btn btn-link">Registrera</a>
-            <button class="btn btn-primary" (click)="logout()">Logga ut</button>
         </div>
     </form>
+    <div *ngIf="loggedIn">
+        <button class="btn btn-primary" (click)="logout()">Logga ut</button>
+    </div>
     <p class="text-danger">{{ message }}</p>
 </div>
