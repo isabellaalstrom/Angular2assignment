@@ -3,56 +3,56 @@
     <form name="form" #form="ngForm">
         <div class="form-group">
             <label for="firstName">Förnamn</label>
-            <input #firstNameV="ngModel" type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required />
+            <input maxlength=20 #firstNameV="ngModel" type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required />
             <div [hidden]="firstNameV.valid || firstNameV.pristine" class="alert alert-danger">
                 Skriv ditt förnamn.
             </div>
         </div>
         <div class="form-group">
             <label for="lastName">Efternamn</label>
-            <input #lastNameV="ngModel" type="text" class="form-control" name="lastName" [(ngModel)]="lastName" required />
+            <input maxlength=30 #lastNameV="ngModel" type="text" class="form-control" name="lastName" [(ngModel)]="lastName" required />
             <div [hidden]="lastNameV.valid || lastNameV.pristine" class="alert alert-danger">
                 Skriv ditt efternamn.
             </div>
         </div>
         <div class="form-group">
             <label for="address">Adress</label>
-            <input #addressV="ngModel" type="text" class="form-control" name="address" [(ngModel)]="address" required />
+            <input maxlength=30 #addressV="ngModel" type="text" class="form-control" name="address" [(ngModel)]="address" required />
             <div [hidden]="addressV.valid || addressV.pristine" class="alert alert-danger">
                 Skriv din adress.
             </div>
         </div>
         <div class="form-group">
             <label for="postalCode">Postnummer</label>
-            <input #postalCodeV="ngModel" type="text" class="form-control" name="postalCode" [(ngModel)]="postalCode" required />
+            <input maxlength=5 #postalCodeV="ngModel" type="number" class="form-control" name="postalCode" [(ngModel)]="postalCode" required />
             <div [hidden]="postalCodeV.valid || postalCodeV.pristine" class="alert alert-danger">
                 Skriv ditt postnummer.
             </div>
         </div>
         <div class="form-group">
             <label for="city">Postort</label>
-            <input #cityV="ngModel" type="text" class="form-control" name="city" [(ngModel)]="city" required />
+            <input maxlength=20 #cityV="ngModel" type="text" class="form-control" name="city" [(ngModel)]="city" required />
             <div [hidden]="cityV.valid || cityV.pristine" class="alert alert-danger">
                 Skriv din postort.
             </div>
         </div>
         <div class="form-group">
             <label for="phone">Telefonnummer</label>
-            <input #phoneV="ngModel" type="text" class="form-control" name="phone" [(ngModel)]="phone" required />
+            <input maxlength=20 #phoneV="ngModel" type="text" class="form-control" name="phone" [(ngModel)]="phone" required />
             <div [hidden]="phoneV.valid || phoneV.pristine" class="alert alert-danger">
                 Skriv ditt telefonnummer.
             </div>
         </div>
         <div class="form-group">
             <label for="email">Epost (blir ditt användarnamn)</label>
-            <input #emailV="ngModel" type="email" class="form-control" name="email" [(ngModel)]="email" required />
+            <input pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" maxlength=40 #emailV="ngModel" type="email" class="form-control" name="email" [(ngModel)]="email" required />
             <div [hidden]="emailV.valid || emailV.pristine" class="alert alert-danger">
                 Du måste skriva in en godkänd e-post.<br> Exempel: namn@epost.se
             </div>
         </div>
         <div class="form-group">
             <label for="password">Lösenord</label>
-            <input #passwordV="ngModel" type="password" class="form-control" name="password" [(ngModel)]="password" required />
+            <input maxlength=20 #passwordV="ngModel" type="password" class="form-control" name="password" [(ngModel)]="password" required />
             <div [hidden]="passwordV.valid || passwordV.pristine" class="alert alert-danger">
                 Du måste skriva in ett lösenord.
             </div>

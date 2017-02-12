@@ -86,32 +86,4 @@ export class AccountService {
         console.error('!!!ERROR ERROR ERROR!!!', error);
         return Promise.reject(error.message || error);
     }
-
-    ////   JWT-login - koppla till knapp?
-    // loginAdmin(loginInformation: LoginInformation) {
-    //     return this.http.post('http://nackademiskasecure.azurewebsites.net/api/account/admin/login', loginInformation) //jwt login + cookie
-    //         .map((response: Response) => {
-    //             // login successful if there's a jwt token in the response
-    //             let customer = response.json();
-    //             if (customer && customer.token) {
-    //                 localStorage.setItem('currentUser', JSON.stringify(customer));
-    //                 console.log("token finns");
-    //                 this.customer = customer;
-    //             }
-    //             else
-    //             { console.log("token finns inte"); }
-    //         })
-    // }
-
-    // logoutAdmin() {
-    //     localStorage.removeItem('currentUser');
-    // }
-
-    // private jwt() {
-    //     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //     if (currentUser && currentUser.token) {
-    //         let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-    //         return new RequestOptions({ headers: headers });
-    //     }
-    // }
 }

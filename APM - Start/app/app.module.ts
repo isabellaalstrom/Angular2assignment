@@ -1,4 +1,7 @@
+import { AdminComponent } from './admin/admin.component';
+import { AdminLoginComponent } from './admin/admin-login.component';
 import * as path from 'path';
+import { AdminService } from './admin/admin.service';
 import { SupplierService } from './supplier/supplier.service';
 import { AlertService } from './shared/alert.service';
 import { AccountService } from './account/account.service';
@@ -32,6 +35,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'auction/:id', component: AuctionDetailsComponent },
   { path: 'supplier/:id', component: SupplierComponent },
+  { path: 'adminlogin', component: AdminLoginComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]  },
   { path: '', redirectTo: 'auctions', pathMatch: 'full' },
   { path: '**', redirectTo: 'welcome', pathMatch: 'full' } //gör 404?
 ]
@@ -53,12 +58,14 @@ const routes: Routes = [
     LoginComponent,
     BidComponent,
     RegisterComponent,
+    AdminLoginComponent,
+    AdminComponent,
     SoldAuctionPipe,
     AuctionFilterPipe,
     CategorySortPipe,
     BidFilterPipe
   ],
-    providers: [AuctionService, SupplierService, AccountService, AlertService, AuthGuard],
+    providers: [AuctionService, SupplierService, AccountService, AlertService, AdminService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

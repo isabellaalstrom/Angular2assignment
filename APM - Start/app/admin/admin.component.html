@@ -1,0 +1,35 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        ADMIN - Avslutade auktioner
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover" *ngIf='auctions && auctions.length'>
+                <thead>
+                    <tr>
+                        <th>Auktion</th>
+                        <th>Beskrivning</th>
+                        <th>Starttid</th>
+                        <th>Sluttid</th>
+                        <th>Köp nu-pris</th>
+                        <th>Kategori</th>
+                        <th>Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let auction of auctions'>
+                        <td>{{ auction.name }}</td>
+                        <td>{{ auction.description }}</td>
+                        <td>{{ auction.startTime | date:'medium' }}</td>
+                        <td>{{ auction.endTime | date:'medium' }}</td>
+                        <td>{{ auction.buyNowPrice | currency:'SEK' }}</td>
+                        <td>{{ auction.categoryId }}</td>
+                        <td>{{ auction.id }}</td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button (click)="logout()">Logga ut som admin</button>

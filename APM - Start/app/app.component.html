@@ -1,18 +1,19 @@
-    <div>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a class="navbar-brand">{{pageTitle}}</a>
-                <ul class="nav navbar-nav">
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <a class="navbar-brand">{{pageTitle}}</a>
+            <ul class="nav navbar-nav">
+                <li [routerLink]="['/auctions']"><a>Auktioner</a></li>
+                
                 <li *ngIf="!loggedIn" [routerLink]="['/login']"><a>Logga in/registrera</a></li>
                 <li *ngIf="loggedIn" [routerLink]="['/login']"><a>Logga ut</a></li>
+                <li [routerLink]="['/adminlogin']"><a>Logga in som admin</a></li>
                 
-                    
-                    <li [routerLink]="['/auctions']"><a>Auktioner</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
-            <alert></alert>
-            <router-outlet></router-outlet>
+            </ul>
         </div>
+    </nav>
+    <div class="container">
+        <alert></alert>
+        <router-outlet></router-outlet>
     </div>
+</div>
