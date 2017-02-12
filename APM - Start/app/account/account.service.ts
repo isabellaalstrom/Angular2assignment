@@ -21,7 +21,7 @@ export class AccountService {
 
     //funkar
     login(loginInformation: LoginInformation): Promise<boolean> {
-        return this.http.post('http://nackademiskasecure2.azurewebsites.net/api/account/login', loginInformation, { withCredentials: true })
+        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/account/login', loginInformation, { withCredentials: true })
             .toPromise()
             .then(response => {
                 let r = response.json();
@@ -38,12 +38,12 @@ export class AccountService {
 
     //funkar
     logout() {
-        this.http.get('http://nackademiskasecure2.azurewebsites.net/api/account/logout');
+        this.http.get('http://nackademiskasecure.azurewebsites.net/api/account/logout');
         this.customer = null;
     }
 
     getCustomers(): Promise<Customer[]> {
-        return this.http.get("http://nackademiskasecure2.azurewebsites.net/api/customer")
+        return this.http.get("http://nackademiskasecure.azurewebsites.net/api/customer")
             .toPromise()
             .then((response: Response) => response.json())
             .catch(this.handleError);;
@@ -69,7 +69,7 @@ export class AccountService {
         let headers = new Headers({ 'Content-Type': 'application/json' })
         let options = new RequestOptions({ headers: headers });
         return this.http
-            .post('http://nackademiska.azurewebsites.net/api/customer',
+            .post('http://nackademiskasecure.azurewebsites.net/api/customer',
             { firstName: firstName, lastName: lastName, address: address,
                 postalCode: postalCode, city: city, phone: phone,
                 email: email, password: password }, headers)

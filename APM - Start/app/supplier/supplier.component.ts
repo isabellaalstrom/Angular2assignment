@@ -29,7 +29,6 @@ export class SupplierComponent implements OnInit {
         console.log(this.supplierId);
     }
     onBack(): void {
-        //this.router.navigate(['/auctions']);
         this.location.back();
     }
 }

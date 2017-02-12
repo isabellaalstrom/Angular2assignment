@@ -21,7 +21,7 @@ export class AuctionListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     listFilter: string;
-    categoryFilter: boolean;
+    categoryFilter: boolean = false;
     auctions: IAuction[];
     categories: ICategory[];
     category: ICategory;
@@ -41,9 +41,12 @@ export class AuctionListComponent implements OnInit {
         this.isLoggedIn();
         this.today.getDate();
     }
-    ngDoCheck()
-    {
+    ngOnChanges() {
         this.isLoggedIn();
+        this.auctionService.getAllAuctions() //funkar att uppdatera sidan efter köp
+             .then(auctions => {
+                 this.auctions = auctions;
+             });
     }
     isLoggedIn() {
         if (this.accountService.isLoggedIn()) {

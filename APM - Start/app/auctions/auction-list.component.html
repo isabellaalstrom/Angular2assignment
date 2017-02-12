@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        {{loggedIn + " " + pageTitle + " " + today}}
+        {{pageTitle + " - " + (today | date:'mediumDate')}}
     </div>
     <div class="panel-body">
         <div class="row">
@@ -16,7 +16,7 @@
         </div>
                             <button class='btn btn-default'
                                 (click)='toggleSort()'>
-                                {{categoryFilter ? 'Ta bort sortering' : 'Sortera på kategori'}}
+                                {{categoryFilter ? "Ta bort sortering" : "Sortera på kategori"}}
                             </button>
         <div class="table-responsive">
             <table class="table table-hover" *ngIf='auctions && auctions.length'>
@@ -28,10 +28,13 @@
                         <th>Starttid</th>
                         <th>Sluttid</th>
                         <th>Köp nu-pris</th>
+                        <th>Kategori</th>
+                        <th>Id</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let auction of auctions | auctionFilter:listFilter | soldAuction:today | categorySort:categoryFilter' (click)="goToDetails(auction.id)">
+                    <tr *ngFor='let auction of auctions | auctionFilter:listFilter | soldAuction:today | categorySort:categoryFilter'
+                            (click)="goToDetails(auction.id)">
                         <td>
                             <img [src]='auction.imageUrl' [title]='auction.name' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
                         </td>
@@ -40,6 +43,8 @@
                         <td>{{ auction.startTime | date:'medium' }}</td>
                         <td>{{ auction.endTime | date:'medium' }}</td>
                         <td>{{ auction.buyNowPrice | currency:'SEK' }}</td>
+                        <td>{{ auction.categoryId }}</td>
+                        <td>{{ auction.id }}</td>                        
                     </tr>
                 </tbody>
             </table>

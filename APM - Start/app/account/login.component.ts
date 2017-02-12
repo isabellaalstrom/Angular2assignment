@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { LoginInformation } from './login-information';
 import { AccountService } from './account.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from '../shared/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  returnUrl: string;
   loginInfo: LoginInformation = new LoginInformation();
   message: string = "";
   loggedIn: boolean;
@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
   constructor(private location: Location,
     private accountService: AccountService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; //finns ej nåt returnurl?
     this.loggedIn = this.isLoggedIn();
   }
   ngOnChanges(){
@@ -31,12 +31,11 @@ export class LoginComponent implements OnInit {
   login(): void {  //funkar
     this.accountService.login(this.loginInfo).then(result => {
       if (!result) {
-        this.message = "Kunde inte logga in"; 
+        this.alertService.error("Nåt gick fel, försök igen.", true)
       }
       else if (result) {
-        console.log(this.returnUrl); 
-        this.router.navigate([this.returnUrl]); 
-        //kommer tillbaka till auctions, ej returnurl?
+        this.alertService.success("Du är nu inloggad!", true);
+        this.location.back();
       }
     })
   }

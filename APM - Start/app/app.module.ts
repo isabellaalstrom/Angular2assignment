@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { SupplierService } from './supplier/supplier.service';
+import { AlertService } from './shared/alert.service';
 import { AccountService } from './account/account.service';
 import { AuctionService } from './auctions/auction.service';
 import { AuthGuard } from './account/auth.guard';
@@ -10,6 +11,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router'
 
 import { AppComponent } from './app.component';
+import { AlertComponent } from './shared/alert.component';
 import { AuctionListComponent } from './auctions/auction-list.component';
 import { AuctionDetailsComponent } from './auctions/auction-details.component';
 import { CategoryComponent } from './auctions/category.component';
@@ -43,6 +45,7 @@ const routes: Routes = [
   ],
   declarations: [
     AppComponent,
+    AlertComponent,
     AuctionListComponent,
     AuctionDetailsComponent,
     CategoryComponent,
@@ -55,7 +58,7 @@ const routes: Routes = [
     CategorySortPipe,
     BidFilterPipe
   ],
-    providers: [AuctionService, SupplierService, AccountService, AuthGuard],
+    providers: [AuctionService, SupplierService, AccountService, AlertService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

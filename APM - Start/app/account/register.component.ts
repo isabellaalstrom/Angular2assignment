@@ -3,6 +3,7 @@ import { error } from 'util';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../shared/alert.service';
 
 @Component({
     selector: 'app-register',
@@ -23,14 +24,15 @@ export class RegisterComponent {
 
     constructor(
         private router: Router,
-        private accountService: AccountService) { }
+        private accountService: AccountService,
+        private alertService: AlertService) { }
 
     register() {  //funkar med nackademiska, men ej secure
         this.accountService.createCustomer(this.firstName, this.lastName,
             this.address, this.postalCode, this.city, this.phone,
             this.email, this.password)
             .then(response => {
-                console.log("registrerad!");
+                this.alertService.success("Du är nu registrerad!", true);
                 this.router.navigate(['/auctions']);
             });
     }

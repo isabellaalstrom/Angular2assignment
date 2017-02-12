@@ -25,16 +25,13 @@ export class BidComponent implements OnInit {
                  this.bids = bids as IBid[];
                  this.getHighestBid();
             });
-         //this.getHighestBid();
     }
 
     getHighestBid() {
-        //this.auctionService.getHighestBid(this.auctionId).subscribe();
         this.bids.forEach(bid => {
             if(bid.bidPrice >= this.highestBidPrice)
             {
                 this.highestBidPrice = bid.bidPrice;
-                //this.highestBid = bid;
             }
         });
     }

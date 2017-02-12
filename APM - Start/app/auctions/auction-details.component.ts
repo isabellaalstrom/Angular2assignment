@@ -1,18 +1,22 @@
+import { IBid } from './bid';
 import { Component, OnInit } from '@angular/core';
 import { IAuction } from './auction';
 import { AuctionService } from './auction.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account/account.service';
+import { AlertService } from '../shared/alert.service';
 
 @Component({
     //selector:'pm-auction-details',
-    templateUrl: 'app/auctions/auction-details.component.html'
+    templateUrl: 'app/auctions/auction-details.component.html',
+    styleUrls: ['app/auctions/auction-details.component.css']
 })
 export class AuctionDetailsComponent implements OnInit {
     constructor(private auctionService: AuctionService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService) {
+        private accountService: AccountService,
+        private alertService: AlertService) {
     }
 
     pageTitle: string = 'Auktionsdetaljer';
@@ -20,7 +24,9 @@ export class AuctionDetailsComponent implements OnInit {
     auction: IAuction;
     message: string;
     loggedIn: boolean;
-    bid: number = 50000; //gör till nuvarande högsta bud istället
+    bid: number;
+    highestBid: number = 0;
+    bids: IBid[];
 
 
     ngOnInit() {
@@ -29,6 +35,12 @@ export class AuctionDetailsComponent implements OnInit {
             this.auction = auction;
         });
         this.isLoggedIn();
+        this.auctionService.getBids(this.auctionId).subscribe(
+            bids => {
+                this.bids = bids as IBid[];
+                this.setHighestBid();
+            });
+
         //this.bid = highestBid; //FIXA?
     }
 
@@ -44,6 +56,17 @@ export class AuctionDetailsComponent implements OnInit {
             this.loggedIn = false;
         }
     }
+
+    setHighestBid() {
+        this.bids.forEach(bid => {
+            if (bid.bidPrice >= this.highestBid) {
+                this.highestBid = bid.bidPrice;
+                this.bid = this.highestBid + 1;
+            }
+        });
+
+    }
+
     //funkar
     onBack(): void {
         this.router.navigate(['/auctions']);
@@ -57,19 +80,24 @@ export class AuctionDetailsComponent implements OnInit {
     //funkar i vanliga, ej secure
     postBid() {
         if (this.loggedIn) {
-            let customerId = this.accountService.customer.id; //auctionService kanske kan hämta själv?
-            this.auctionService.postBid(this.auctionId, customerId, this.bid)
-            .then(response => {
-                console.log("Du har lagt ett bud.");
-                this.message = "Du har lagt ett bud.";
-            });
+            if (this.bid > this.highestBid) {
+                let customerId = this.accountService.customer.id; //auctionService kanske kan hämta själv?
+                this.auctionService.postBid(this.auctionId, customerId, this.bid)
+                    .then(response => {
+                        this.alertService.success("Du har lagt ett bud.", true);  //om budet för lågt
+                        this.message = "Du har lagt ett bud.";
+                    });
+            }
+            else {
+                this.alertService.error("Ditt bud är för lågt.", true);
+            }
         }
         else if (!this.loggedIn) { //redirect funkar
             this.router.navigate(['login']);
         }
     }
 
-    //funkar med vanliga, ej secure
+
     buyNow() { //i secure får jag error 400 men varan köps ändå
         if (this.loggedIn) {
             let customerId = this.accountService.customer.id;

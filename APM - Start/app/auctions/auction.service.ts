@@ -44,18 +44,18 @@ export class AuctionService {
         console.log("bud: " + bP);
         console.log("auktion: " + aId);
         console.log("användare: " + cId);
-        return this.http.post('http://nackademiska.azurewebsites.net/api/bid',
-            { auctionId: aId, customerId: cId, bidPrice: bP }//,
-            //{ withCredentials: true }
+        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/bid',
+            { auctionId: aId, customerId: cId, bidPrice: bP },
+            { withCredentials: true }
             )
             .toPromise()
             .catch(this.handleError);
     }
     //funkar med vanliga, ej secure
     buyNow(aId: number, cId: number) { //i secure får jag error 400 men varan köps ändå
-        return this.http.post('http://nackademiska.azurewebsites.net/api/auction/buynow',
+        return this.http.post('http://nackademiskasecure.azurewebsites.net/api/auction/buynow',
         { auctionId: aId, customerId: cId }
-        //, { withCredentials: true }
+        , { withCredentials: true }
         )
             .toPromise()
             .catch(this.handleError);

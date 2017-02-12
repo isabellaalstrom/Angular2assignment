@@ -1,5 +1,5 @@
 <div class='panel panel-primary' *ngIf='auction'>
-    <div class='panel-heading' style='font-size:large'> {{loggedIn + " " +pageTitle + ': ' + auction.name}}
+    <div class='panel-heading' style='font-size:large'> {{pageTitle + ': ' + auction.name}}
 </div>
 
 <div class='panel-body'>
@@ -32,11 +32,17 @@
             <div class='row'>
                 <div class='col-md-3'>Buda</div>
 
-                    <form>
+                    <form #form="ngForm">
                         <div class="form-group col-md-3">
-                            <input type="number" name="bid" [(ngModel)]='bid' placeholder="50 000" required />
+                            <input type="number" name="bid" [(ngModel)]='bid' placeholder="Minst {{highestBid + 1}} kr" #name="ngModel" required />
+                        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            Du måste skriva in ett bud.
                         </div>
-                        <div col-md-3><button class="btn btn-default" (click)='postBid()'>Lägg bud</button></div>
+                        <div [hidden]="(bid >= (highestBid + 1)) || (bid == null) || name.pristine" class="alert alert-danger">
+                            Du måste lägga ett bud på minst {{ highestBid + 1 }} kr.
+                        </div>
+                        </div>
+                        <div col-md-3><button class="btn btn-default" [disabled]="!form.form.valid || ( bid < (highestBid + 1) )" (click)='postBid(); form.reset()'>Lägg bud</button></div>
                     </form>
             </div>
             <div class='row'>
@@ -45,11 +51,6 @@
                     <pm-bid [auctionId]='auction.id'></pm-bid>
                 </div>
             </div>
-            <!--<div class='row'>
-                <div class='col-md-6'><button class="btn btn-default" (click)="goToSupplier(auction.supplierId)">Visa information om leverantör</button></div>
-                <div class='col-md-3'></div>
-                koppla till metod
-            </div>-->
         </div>
 
         <div class='col-md-3'>
