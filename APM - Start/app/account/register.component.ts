@@ -7,7 +7,8 @@ import { AlertService } from '../shared/alert.service';
 
 @Component({
     selector: 'app-register',
-    templateUrl: 'app/account/register.component.html'
+    templateUrl: 'app/account/register.component.html',
+    styleUrls: ['app/shared/forms-validation.css']
 })
 
 export class RegisterComponent {

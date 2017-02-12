@@ -1,40 +1,64 @@
 <div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
-    <form name="form">
+    <form name="form" #form="ngForm">
         <div class="form-group">
             <label for="firstName">Förnamn</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required />
+            <input #firstNameV="ngModel" type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required />
+            <div [hidden]="firstNameV.valid || firstNameV.pristine" class="alert alert-danger">
+                Skriv ditt förnamn.
+            </div>
         </div>
         <div class="form-group">
             <label for="lastName">Efternamn</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="lastName" required />
+            <input #lastNameV="ngModel" type="text" class="form-control" name="lastName" [(ngModel)]="lastName" required />
+            <div [hidden]="lastNameV.valid || lastNameV.pristine" class="alert alert-danger">
+                Skriv ditt efternamn.
+            </div>
         </div>
         <div class="form-group">
             <label for="address">Adress</label>
-            <input type="text" class="form-control" name="address" [(ngModel)]="address" required />
+            <input #addressV="ngModel" type="text" class="form-control" name="address" [(ngModel)]="address" required />
+            <div [hidden]="addressV.valid || addressV.pristine" class="alert alert-danger">
+                Skriv din adress.
+            </div>
         </div>
         <div class="form-group">
             <label for="postalCode">Postnummer</label>
-            <input type="text" class="form-control" name="postalCode" [(ngModel)]="postalCode" required />
+            <input #postalCodeV="ngModel" type="text" class="form-control" name="postalCode" [(ngModel)]="postalCode" required />
+            <div [hidden]="postalCodeV.valid || postalCodeV.pristine" class="alert alert-danger">
+                Skriv ditt postnummer.
+            </div>
         </div>
         <div class="form-group">
             <label for="city">Postort</label>
-            <input type="text" class="form-control" name="city" [(ngModel)]="city" required />
+            <input #cityV="ngModel" type="text" class="form-control" name="city" [(ngModel)]="city" required />
+            <div [hidden]="cityV.valid || cityV.pristine" class="alert alert-danger">
+                Skriv din postort.
+            </div>
         </div>
         <div class="form-group">
             <label for="phone">Telefonnummer</label>
-            <input type="text" class="form-control" name="phone" [(ngModel)]="phone" required />
+            <input #phoneV="ngModel" type="text" class="form-control" name="phone" [(ngModel)]="phone" required />
+            <div [hidden]="phoneV.valid || phoneV.pristine" class="alert alert-danger">
+                Skriv ditt telefonnummer.
+            </div>
         </div>
         <div class="form-group">
             <label for="email">Epost (blir ditt användarnamn)</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="email" required />
+            <input #emailV="ngModel" type="email" class="form-control" name="email" [(ngModel)]="email" required />
+            <div [hidden]="emailV.valid || emailV.pristine" class="alert alert-danger">
+                Du måste skriva in en godkänd e-post.<br> Exempel: namn@epost.se
+            </div>
         </div>
         <div class="form-group">
             <label for="password">Lösenord</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="password" required />
+            <input #passwordV="ngModel" type="password" class="form-control" name="password" [(ngModel)]="password" required />
+            <div [hidden]="passwordV.valid || passwordV.pristine" class="alert alert-danger">
+                Du måste skriva in ett lösenord.
+            </div>
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" (click)='register()'>Registrera</button>
+            <button [disabled]="!form.form.valid" class="btn btn-primary" (click)='register()'>Registrera</button>
             <a [routerLink]="['/login']" class="btn btn-link">Avbryt</a>
         </div>
     </form>

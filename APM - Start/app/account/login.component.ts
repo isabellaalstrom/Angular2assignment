@@ -8,7 +8,8 @@ import { AlertService } from '../shared/alert.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'app/account/login.component.html'
+  templateUrl: 'app/account/login.component.html',
+  styleUrls: ['app/shared/forms-validation.css']
 })
 export class LoginComponent implements OnInit {
 

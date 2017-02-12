@@ -9,7 +9,7 @@ import { AlertService } from '../shared/alert.service';
 @Component({
     //selector:'pm-auction-details',
     templateUrl: 'app/auctions/auction-details.component.html',
-    styleUrls: ['app/auctions/auction-details.component.css']
+    styleUrls: ['app/shared/forms-validation.css']
 })
 export class AuctionDetailsComponent implements OnInit {
     constructor(private auctionService: AuctionService,
